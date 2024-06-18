@@ -9,7 +9,7 @@ const AcDeac = () => {
         <h1> CUG Details</h1>
         <form action="" className="searchCUG ">
           <div className="col-4 searchCont">
-            <label for="searchCUGno" class="form-label">
+            <label htmlFor="searchCUGno" class="form-label">
               CUG No.
             </label>
             <input

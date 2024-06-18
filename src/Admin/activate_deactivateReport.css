@@ -1,0 +1,14 @@
+.activate_deactivateReport {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+.activate_deactivateReport h1 {
+  font-size: 3rem;
+}
+.activate_deactivateReport label {
+  font-size: 1.2rem;
+}
+.activeDeactiveSelectCont {
+  width: 50%;
+}

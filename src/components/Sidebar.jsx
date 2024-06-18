@@ -20,7 +20,7 @@ const Sidebar = () => {
           </li>
           <li>
             <NavLink to="/dealer/allocationReport">
-              Allocation Wise Report
+              Allocation-Wise Report
             </NavLink>
           </li>
           <li>

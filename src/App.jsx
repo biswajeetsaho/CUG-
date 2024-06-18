@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/Login";
 import Sidebar from "./components/Sidebar";
 import Addcug from "./components/Addcug";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AcDeac from "./components/activate_deactivateCUG";
 import AllocationReport from "./components/allocationRepo";
 import PlanReport from "./components/planReport";
@@ -18,13 +18,12 @@ function App() {
 
   return (
     <>
-      {/* <Login /> */}
-      {/* <Sidebar />
-      <Addcug /> */}
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />}></Route>
           {/* -------------Dealer Page Routing--------------- */}
+          <Route path="/" element={<Navigate to="/login" />}></Route>
+          <Route path="*" element={<Navigate to="/login" />}></Route>
           <Route path="/dealer" element={<Sidebar />}>
             <Route path="/dealer/addcug" element={<Addcug />}></Route>
             <Route

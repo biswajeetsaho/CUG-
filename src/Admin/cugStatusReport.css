@@ -1,0 +1,16 @@
+.cugStatusReport {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+.cugStatusReport h1 {
+  font-size: 3rem;
+}
+.cugStatusReport label {
+  font-size: 1.2rem;
+}
+.statusTable {
+  width: 100%;
+  height: auto;
+  padding: 3rem 0rem;
+}

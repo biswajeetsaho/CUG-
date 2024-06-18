@@ -7,13 +7,13 @@ const CreateDealer = () => {
         <h1>Create Dealer</h1>
         <form className="row g-3">
           <div className="col-6">
-            <label htmlFor="inputUsername" className="form-label">
+            <label htmlFor="inputName" className="form-label">
               User Name
             </label>
             <input
               type="text"
-              className="form-control"
-              id="inputUsername"
+              className="form-control form-control-lg"
+              id="inputName"
               placeholder="John Wick"
             />
           </div>
@@ -21,7 +21,11 @@ const CreateDealer = () => {
             <label htmlFor="inputEmail4" className="form-label">
               Email
             </label>
-            <input type="email" className="form-control" id="inputEmail4" />
+            <input
+              type="email"
+              className="form-control form-control-lg"
+              id="inputEmail4"
+            />
           </div>
           <div className="col-md-6">
             <label htmlFor="inputPassword4" className="form-label">
@@ -29,7 +33,7 @@ const CreateDealer = () => {
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control form-control-lg"
               id="inputPassword4"
             />
           </div>
@@ -40,22 +44,26 @@ const CreateDealer = () => {
             </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-lg"
               id="inputAddress2"
               placeholder="Apartment, studio, or floor"
             />
           </div>
           <div className="col-md-6">
-            <label htmlFor="inputCity" className="form-label">
+            <label htmlFor="inputCity" className="form-label ">
               City
             </label>
-            <input type="text" className="form-control" id="inputCity" />
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              id="inputCity"
+            />
           </div>
           <div className="col-md-4">
             <label htmlFor="inputState" className="form-label">
               State
             </label>
-            <select id="inputState" className="form-select">
+            <select id="inputState" className="form-select form-select-lg">
               <option selected>Choose...</option>
               <option>...</option>
             </select>
@@ -64,7 +72,11 @@ const CreateDealer = () => {
             <label htmlFor="inputZip" className="form-label">
               Zip
             </label>
-            <input type="text" className="form-control" id="inputZip" />
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              id="inputZip"
+            />
           </div>
 
           <div className="col-12">

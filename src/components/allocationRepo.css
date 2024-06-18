@@ -1,0 +1,11 @@
+.allocation_Repo {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+.allocation_Repo h1 {
+  font-size: 3rem;
+}
+.allocation_Repo label {
+  font-size: 1.3rem;
+}
