@@ -7,3 +7,6 @@
 .addcug h1 {
   font-size: 3rem;
 }
+.fading {
+  opacity: 0.6;
+}

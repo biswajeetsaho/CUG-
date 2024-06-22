@@ -14,9 +14,7 @@ const Sidebar = () => {
             <NavLink to="/dealer/addcug">Add New CUG</NavLink>
           </li>
           <li>
-            <NavLink to="/dealer/activateDeactivate">
-              Activate / Deactivate CUG
-            </NavLink>
+            <NavLink to="/dealer/activateDeactivate">CUG Details</NavLink>
           </li>
           <li>
             <NavLink to="/dealer/allocationReport">

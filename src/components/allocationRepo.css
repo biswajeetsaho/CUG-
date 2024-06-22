@@ -9,3 +9,27 @@
 .allocation_Repo label {
   font-size: 1.3rem;
 }
+.table-responsive {
+  /* padding: 1rem; */
+  width: auto;
+  overflow-y: auto;
+  height: 45vh;
+  /* background-color: aliceblue; */
+}
+.table-responsive::-webkit-scrollbar {
+  width: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #a5a5a5;
+  border-radius: 4px;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}
+table {
+  margin: 0 !important;
+}

@@ -5,21 +5,28 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-
+import { setMode } from "../userState.jsx";
 const Login = () => {
   const [user, setuser] = useState("Dealer");
   const navigate = useNavigate();
   function handleDealer() {
     setuser("Dealer");
+    setMode("Dealer");
   }
   function handleAdmin() {
     setuser("Admin");
+    setMode("Admin");
   }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Clicked");
-    if (user === "Dealer") navigate("/dealer/addcug");
-    else navigate("/admin/createDealer");
+    if (user === "Dealer") {
+      navigate("/dealer/homePage");
+      setMode("Dealer");
+    } else {
+      navigate("/admin/homePage");
+      setMode("Admin");
+    }
   };
   return (
     <>

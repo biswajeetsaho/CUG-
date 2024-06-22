@@ -24,33 +24,188 @@ const AllHis = () => {
           </form>
           <p>Showing Results For CUG No.</p>
         </div>
-
-        <table class="table table-striped historyTable">
-          <thead>
-            <tr>
-              <th scope="col">SL.No</th>
-              <th scope="col">Employee ID</th>
-              <th scope="col">Employee Name</th>
-              <th scope="col">Division</th>
-              <th scope="col">Department</th>
-              <th scope="col">Allotment Date</th>
-              <th scope="col">Returned Date</th>
-              {/* <th scope="col">Allotment Date</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>dvsvse</td>
-              <td>csdcvsdvsde</td>
-              <td>dvsvse</td>
-              {/* <td>csdcvsdvsde</td> */}
-            </tr>
-          </tbody>
-        </table>
+        <br />
+        <div className="table-responsive">
+          <table class="table table-striped historyTable">
+            <thead>
+              <tr>
+                <th scope="col">SL.No</th>
+                <th scope="col">Employee ID</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Division</th>
+                <th scope="col">Department</th>
+                <th scope="col">Allotment Date</th>
+                <th scope="col">Returned Date</th>
+                {/* <th scope="col">Allotment Date</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+                {/* <td>csdcvsdvsde</td> */}
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>dvsvse</td>
+                <td>csdcvsdvsde</td>
+                <td>dvsvse</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </main>
       <Outlet />
     </>

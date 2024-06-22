@@ -13,6 +13,9 @@ import AllHis from "./Admin/allotmentHistory";
 import AcDeacReport from "./Admin/activate_deactivateReport";
 import CreateDealer from "./Admin/createDealer";
 import CugStatusReport from "./Admin/cugStatusReport";
+import HomePage from "./homePage";
+import UploadCUGBill from "./Admin/upload_CUGBill";
+import UploadCUG from "./Admin/upload_NewCug";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -25,6 +28,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" />}></Route>
           <Route path="*" element={<Navigate to="/login" />}></Route>
           <Route path="/dealer" element={<Sidebar />}>
+            <Route path="/dealer/homePage" element={<HomePage />}></Route>
             <Route path="/dealer/addcug" element={<Addcug />}></Route>
             <Route
               path="/dealer/activateDeactivate"
@@ -38,6 +42,7 @@ function App() {
           </Route>
           {/* -------------Admin Page Routing--------------- */}
           <Route path="/admin" element={<AdminSidebar />}>
+            <Route path="/admin/homePage" element={<HomePage />}></Route>
             <Route
               path="/admin/createDealer"
               element={<CreateDealer />}
@@ -57,6 +62,11 @@ function App() {
               path="/admin/activate_Deactivate_report"
               element={<AcDeacReport />}
             ></Route>
+            <Route
+              path="/admin/upload_CUGbill"
+              element={<UploadCUGBill />}
+            ></Route>
+            <Route path="/admin/upload_CUGNo" element={<UploadCUG />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

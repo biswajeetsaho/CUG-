@@ -8,7 +8,10 @@
 }
 .acdeac h1 {
   font-size: 3rem;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
+}
+.acdeac p {
+  color: #8a8a8a;
 }
 .searchCUG {
   margin-top: 2rem;
@@ -39,6 +42,6 @@
   gap: 2rem;
 }
 .AcDeacbtn button {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 500;
 }

@@ -24,3 +24,62 @@ html {
   border-radius: 0.7rem;
   padding: 1rem 1.5rem;
 }
+.display {
+  display: none;
+}
+
+/* ---------CSS for Home Page------------ */
+.homePage {
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  color: #1d2b53;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.hompage_header {
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.Railway_logo,
+.Emblem_logo {
+  height: 8rem;
+  width: auto;
+}
+.homepage_heading {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: auto;
+  height: auto;
+}
+.homepage_heading h1 {
+  font-size: 3.5rem;
+}
+
+.homePage p {
+  font-size: 1.3rem;
+}
+.homepage_heading p {
+  font-size: 2.18rem;
+  font-style: italic;
+  color: red;
+}
+/* ----------------CSS for UPload CUG BILL--------------s */
+.uploadCugbill,
+.uploadCugNo {
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.uploadCugbill h1,
+.uploadCugNo h1 {
+  font-size: 3rem;
+}
