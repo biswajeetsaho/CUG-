@@ -4,6 +4,7 @@ import { MdLogout } from "react-icons/md";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <nav className="dashboard">
@@ -34,6 +35,9 @@ const AdminSidebar = () => {
             <NavLink to="/admin/activate_Deactivate_report">
               Activate Deactivate Report
             </NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/billPassing">Bill Pasing Register</NavLink>
           </li>
           <li>
             <NavLink to="/admin/upload_CUGbill">Upload CUG Bill</NavLink>

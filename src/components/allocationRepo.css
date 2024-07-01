@@ -2,18 +2,19 @@
   width: 100%;
   height: 100%;
   padding: 2rem;
+  padding-top: 1rem;
 }
 .allocation_Repo h1 {
-  font-size: 3rem;
+  font-size: 2.7rem;
 }
 .allocation_Repo label {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 .table-responsive {
   /* padding: 1rem; */
   width: auto;
   overflow-y: auto;
-  height: 45vh;
+  height: 35vh;
   /* background-color: aliceblue; */
 }
 .table-responsive::-webkit-scrollbar {
@@ -32,4 +33,8 @@ thead th {
 }
 table {
   margin: 0 !important;
+}
+.generateRepo {
+  color: white;
+  text-decoration: none;
 }

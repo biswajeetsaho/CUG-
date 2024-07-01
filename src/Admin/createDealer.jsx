@@ -3,6 +3,7 @@ import "./createDealer.css";
 import { useState } from "react";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import Fapp from "../firebase";
+import Header from "../Header";
 const CreateDealer = () => {
   const db = getFirestore(Fapp);
   // ----------states for the Input Fields-------------
@@ -45,7 +46,10 @@ const CreateDealer = () => {
   return (
     <>
       <main className="createDealer">
+        <Header />
+        <br />
         <h1>Create Dealer</h1>
+        <br />
         <form className="row g-3">
           <div className="col-6">
             <label htmlFor="inputName" className="form-label">

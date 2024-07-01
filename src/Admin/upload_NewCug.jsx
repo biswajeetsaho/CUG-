@@ -3,7 +3,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import * as XLSX from "xlsx";
 import Fapp from "../firebase";
 import { Outlet } from "react-router-dom";
-
+import Header from "../Header";
 const UploadCUG = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
@@ -42,13 +42,13 @@ const UploadCUG = () => {
       "EMP NO",
       "NAME",
       "DESIGNATION",
-      "DEPARTMENT",
+      "UNIT",
+      "Dept",
       //   "Division",
-      "BILL UNIT",
-      "ALLOCATION",
+      "BillUnitNo",
+      "Allocation",
       "OPERATOR",
       "PLAN",
-      "PRICE",
     ];
 
     if (JSON.stringify(header) !== JSON.stringify(expectedHeader)) {
@@ -63,10 +63,10 @@ const UploadCUG = () => {
         empNo,
         empName,
         designation,
+        division,
         department,
-        // division,
-        allocationUnit,
         billUnit,
+        allocationUnit,
         operator,
         plan,
       ] = row;
@@ -76,10 +76,10 @@ const UploadCUG = () => {
         !empNo ||
         !empName ||
         !designation ||
+        !division ||
         !department ||
-        // !division ||
-        !allocationUnit ||
         !billUnit ||
+        !allocationUnit ||
         !operator ||
         !plan
       ) {
@@ -87,19 +87,20 @@ const UploadCUG = () => {
         return;
       }
 
-      const newCugRef = ref(db, `Employees2/${empNo}`);
+      const newCugRef = ref(db, `Employees3/${empNo}`);
       set(newCugRef, {
         Employee_Name: empName,
         Employee_CUG: cugNo,
         Employee_Id: empNo,
         Employee_Designation: designation,
-        // Employee_Division: division,
+        Employee_Division: division,
         Employee_Dept: department,
         Employee_Operator: operator,
         Employee_BillUnit: billUnit,
         Employee_AllocationNo: allocationUnit,
         Employee_Plan: plan,
         createdAt: new Date().toLocaleString(),
+        returnedAt: "",
         status: "Active",
       })
         .then(() => {
@@ -116,6 +117,8 @@ const UploadCUG = () => {
   return (
     <>
       <main className="uploadCugNo">
+        <Header />
+        <br />
         <h1>Upload CUG Number</h1>
         <br />
         <label htmlFor="inputFile" className="form-label">
@@ -155,7 +158,7 @@ const UploadCUG = () => {
             </div>
             <br />
             <button className="btn btn-primary" onClick={handleSubmit}>
-              Submit
+              Upload
             </button>
           </>
         )}

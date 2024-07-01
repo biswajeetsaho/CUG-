@@ -1,9 +1,10 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
-
 import "./Sidebar.css";
+
 const Sidebar = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <nav className="dashboard">
@@ -20,6 +21,9 @@ const Sidebar = () => {
             <NavLink to="/dealer/allocationReport">
               Allocation-Wise Report
             </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dealer/ExceptionReport">Exception Report</NavLink>
           </li>
           <li>
             <NavLink to="/dealer/planReport">Plan-Wise Billing Report</NavLink>

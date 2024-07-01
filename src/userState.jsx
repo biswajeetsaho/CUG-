@@ -1,9 +1,13 @@
-let mode = "";
+import { useState, createContext } from "react";
 
-export const setMode = (newMode) => {
-  mode = newMode;
+export const UserContext = createContext();
+const UserContextProvider = ({ children }) => {
+  const [mode, setMode] = useState("");
+  return (
+    <UserContext.Provider value={{ mode, setMode }}>
+      {" "}
+      {children}{" "}
+    </UserContext.Provider>
+  );
 };
-
-export const getMode = () => {
-  return mode;
-};
+export default UserContextProvider;

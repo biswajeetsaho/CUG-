@@ -31,6 +31,7 @@ html {
 /* ---------CSS for Home Page------------ */
 .homePage {
   padding: 2rem;
+  padding-top: 1rem;
   width: 100%;
   height: 100%;
   color: #1d2b53;
@@ -42,14 +43,14 @@ html {
 .hompage_header {
   width: 100%;
   height: auto;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid black;
 }
 .Railway_logo,
 .Emblem_logo {
-  height: 8rem;
+  height: 6rem;
   width: auto;
 }
 .homepage_heading {
@@ -60,26 +61,40 @@ html {
   height: auto;
 }
 .homepage_heading h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
 }
 
 .homePage p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 .homepage_heading p {
   font-size: 2.18rem;
   font-style: italic;
   color: red;
 }
-/* ----------------CSS for UPload CUG BILL--------------s */
+/* ----------------CSS for UPload CUG BILL && Upload CUG No.--------------s */
 .uploadCugbill,
 .uploadCugNo {
   padding: 2rem;
   width: 100%;
   height: 100%;
+  padding-top: 1rem;
 }
 
 .uploadCugbill h1,
 .uploadCugNo h1 {
   font-size: 3rem;
+}
+/* ----------CSS for Bill passing Registe && Exception Report----------------- */
+.billRegister {
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  padding-top: 1rem;
+}
+.billRegister h1 {
+  font-size: 3rem;
+}
+.billRegister label {
+  font-size: 1.1rem;
 }

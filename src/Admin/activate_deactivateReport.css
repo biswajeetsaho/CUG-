@@ -2,9 +2,10 @@
   width: 100%;
   height: 100%;
   padding: 2rem;
+  padding-top: 1rem;
 }
 .activate_deactivateReport h1 {
-  font-size: 3rem;
+  font-size: 2.7rem;
 }
 .activate_deactivateReport label {
   font-size: 1.2rem;

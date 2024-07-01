@@ -1,172 +1,230 @@
-import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 import "./planReport.css";
+import Fapp from "../firebase";
+import Header from "../Header";
 const PlanReport = () => {
-  const [selectedOption, setSelectedOption] = useState("HQ");
-  const [Department, setDepartment] = useState([]);
-  const [bill, setBill] = useState(0); //for toggling View of the Employee
-  const handleChange = (event) => {
-    setSelectedOption(event.target.options[event.target.selectedIndex].text);
-    console.log(selectedOption);
-  };
-  const HQ_Dept = [
-    "ACCOUNTS",
-    "AUDIT",
-    "COMMERCIAL",
-    "ELECTRICAl",
-    "ENGINEERING",
-    "GENERAL ADMIN",
-    "MECHANICAL",
-    "MEDICAL",
-    "OPERATING",
-    "PERSONNEL",
-    "RRB",
-    "SIGNAL AND TELECOM",
-    "SAFETY",
-    "SECURITY",
-    "STORES",
-  ];
-  const CON_Dept = [
-    "ACCOUNTS",
-    "ELECTRICAL",
-    "ENGINEERING",
-    "OPERATING",
-    "PERSONNEL",
-    "SIGNAL AND TELECOM",
-  ];
-  const MCS_Dept = ["ACCOUNTS", "ELECTRICAL", "MECHANICAL", "PERSONNEL"];
-
+  const [bill, setBill] = useState(0); // for toggling view of the Employee
+  const [selectedPlan, setSelectedPlan] = useState("");
+  const [error, setError] = useState("");
+  const [PlanDetails, setPlanDetails] = useState([]);
+  const [cugBillDetails, setCugBillDetails] = useState({});
+  const [bills, setBills] = useState([]);
+  const [selectedBill, setSelectedBill] = useState("");
+  // Firebase database instance setup (replace with your Firebase setup)
+  const db = getDatabase(Fapp);
+  // ---------Feching Bills------
   useEffect(() => {
-    if (selectedOption === "HQ") setDepartment(HQ_Dept);
-    else if (selectedOption === "CON") setDepartment(CON_Dept);
-    else if (selectedOption === "MCS") setDepartment(MCS_Dept);
-    else setDepartment([]);
-  }, [selectedOption]);
+    const fetchBills = () => {
+      const billRef = ref(db, "CUGBILL/");
+      onValue(billRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const billList = Object.keys(data);
+          setBills(billList);
+        } else {
+          setBills([]);
+        }
+      });
+    };
+    fetchBills();
+  }, [db]);
+  // Handling plan selection and fetching employees
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    if (selectedPlan === "" || selectedBill === "") {
+      alert("Please Select a Plan and a Bill");
+      return;
+    }
 
-  const handleClick = () => {
-    setBill(1 - bill);
+    const planRef = ref(db, "Employees3/");
+    const fetchEmployees = new Promise((resolve, reject) => {
+      onValue(planRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const filteredDetails = Object.values(data).filter((item) => {
+            const isMatchingplan = item.Employee_Plan === selectedPlan;
+            const isActive = item.status === "Active";
+            return isMatchingplan && isActive;
+          });
+          resolve(filteredDetails);
+        } else {
+          reject("No Data found");
+        }
+      });
+    });
+
+    try {
+      const employees = await fetchEmployees;
+      if (employees.length === 0) {
+        setError(" No employees found for the selected plan.");
+        setPlanDetails([]);
+        return;
+      }
+      setPlanDetails(employees);
+      setError(null);
+    } catch (err) {
+      setError(err);
+      setPlanDetails([]);
+    }
   };
+
+  // Fetching CUG Bill details for a specific employee
+  const fetchCugBill = (employeeCug) => {
+    const cugBillRef = ref(db, `CUGBILL/${selectedBill}/${employeeCug}`);
+    onValue(cugBillRef, (snapshot) => {
+      const cugBillData = snapshot.val();
+      if (cugBillData) {
+        setCugBillDetails(cugBillData);
+        setBill(1); // Display bill details
+      } else {
+        setError("No CUG Bill data found");
+        setCugBillDetails({});
+      }
+    });
+  };
+
+  // Handling click to view employee bill details
+  const handleViewBill = (employeeCug) => {
+    try {
+      fetchCugBill(employeeCug);
+    } catch (err) {
+      setError(err.message);
+      setCugBillDetails({});
+    }
+  };
+
+  // Rendering component
   return (
     <>
       <main className="planRepo">
+        <Header />
+        <br />
         <h1>Plan-Wise Billing Report</h1>
         <br />
-        <form action="" className={` row g-3 ${bill === 1 && "display"}`}>
+        <form
+          action=""
+          className={`row g-3 ${bill === 1 ? "display" : ""}`}
+          onSubmit={handleSearch}
+        >
           <div className="col-3">
-            <label for="plan" className="form-label ">
+            <label htmlFor="plan" className="form-label">
               Plan
             </label>
-            <select id="plan" className="form-select form-select-lg">
-              <option selected value="planA">
-                PLAN A
-              </option>
-              <option value="planB">PLAN B</option>
-              <option value="planC">PLAN C</option>
+            <select
+              id="plan"
+              className="form-select "
+              onChange={(e) => setSelectedPlan(e.target.value)}
+            >
+              <option value="">--Choose--</option>
+              <option value="A">PLAN A</option>
+              <option value="B">PLAN B</option>
+              <option value="C">PLAN C</option>
             </select>
           </div>
-          <div className="col-4">
-            <label for="inputDivision" className="form-label ">
-              Division
+          <div className="col-3">
+            <label htmlFor="selectBill" className="form-label">
+              Select Bill
             </label>
             <select
-              className="form-select form-select-lg "
-              id="inputDivision"
-              aria-label="Default select example"
-              onChange={(e) => handleChange(e)}
+              className="form-select "
+              id="selectBill"
+              value={selectedBill}
+              onChange={(e) => {
+                setSelectedBill(e.target.value);
+                setDepartmentAmounts([]);
+                setError("");
+              }}
             >
-              <option value="1" selected>
-                HQ
-              </option>
-              <option value="2">CON</option>
-              <option value="3">MCS</option>
-            </select>
-          </div>
-          <div className="col-4">
-            <label for="inputDept" className="form-label ">
-              Department
-            </label>
-            <select
-              className="form-select form-select-lg "
-              id="inputDept"
-              aria-label="Default select example"
-            >
-              {Department.map((dept, index) => (
-                <option key={index} value={dept}>
-                  {dept}
+              <option value="">-- Select Bill --</option>
+              {bills.map((bill, index) => (
+                <option key={index} value={bill}>
+                  {bill}
                 </option>
               ))}
             </select>
           </div>
-          <div className="col-2">
-            <button className="btn btn-primary">Submit</button>
+          <div className="col-12">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
           </div>
         </form>
         <br />
-        <div className={`table-responsive  ${bill === 1 && "display"}`}>
-          <table class="table table-striped ">
+        <div className={`table-responsive ${bill === 1 ? "display" : ""}`}>
+          <table className="table table-striped">
             <thead>
               <tr>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Employee Name</th>
                 <th scope="col">CUG NO.</th>
                 <th scope="col">Plan</th>
-                {/* <th scope="col">Allotment Date</th>
-                <th scope="col">Returned Date</th> */}
-                <th scope="col">Bill</th>
+                <th scope="col">View Bill</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>
-                  {" "}
-                  <button onClick={handleClick}>view</button>
-                </td>
-              </tr>
+              {PlanDetails.map((employee) => (
+                <tr key={employee.Employee_Id}>
+                  <td>{employee.Employee_Id}</td>
+                  <td>{employee.Employee_Name}</td>
+                  <td>{employee.Employee_CUG}</td>
+                  <td>{employee.Employee_Plan}</td>
+                  <td>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleViewBill(employee.Employee_CUG)}
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        {/* -----------Employeee Bill----------------- */}
+        <br />
+        <p>Number of Employees: {PlanDetails.length} </p>
+        {/* Employee Bill Details */}
         <div
-          className={`table-responsive billtable  ${bill === 0 && "display"}`}
+          className={`table-responsive billtable ${
+            bill === 0 ? "display" : ""
+          }`}
         >
-          <button className="btn btn-danger" onClick={() => setBill(1 - bill)}>
+          <button className="btn btn-danger" onClick={() => setBill(0)}>
             Back
           </button>
           <br />
-
           <br />
-          <table class="table table-bordered border-primary ">
+          <table className="table table-bordered border-primary">
             <thead>
               <tr>
-                <th scope="col">Employee ID</th>
-                <th scope="col">Employee Name</th>
                 <th scope="col">CUG NO.</th>
-                <th scope="col">Talk-Time Amount</th>
-                <th scope="col">Data Amount</th>
-                <th scope="col">SMS Amount</th>
+                <th scope="col">Periodic Charge</th>
+                <th scope="col">Amount Usage</th>
+                <th scope="col">Amount Data</th>
+                <th scope="col">Voice</th>
+                <th scope="col">Video</th>
+                <th scope="col">SMS</th>
                 <th scope="col">Total</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>bbjv</td>
-                <td>bbjv</td>
-                <td>bbjv</td>
+                <td>{cugBillDetails.Employee_CUG}</td>
+                <td>{cugBillDetails.Periodic_Charge}</td>
+                <td>{cugBillDetails.Amount_Usage}</td>
+                <td>{cugBillDetails.Amount_Data}</td>
+                <td>{cugBillDetails.Voice}</td>
+                <td>{cugBillDetails.Video}</td>
+                <td>{cugBillDetails.SMS}</td>
+                <td>{cugBillDetails.Total}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </main>
-      <Outlet />
     </>
   );
 };
+
 export default PlanReport;

@@ -3,10 +3,13 @@ import logo from "../assets/railwaylogo.png";
 import { LuUser2 } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { setMode } from "../userState.jsx";
+import { UserContext } from "../userState";
+// import { setMode } from "../userState.jsx";
 const Login = () => {
+  const { setMode } = useContext(UserContext);
+  // -----------------------------
   const [user, setuser] = useState("Dealer");
   const navigate = useNavigate();
   function handleDealer() {

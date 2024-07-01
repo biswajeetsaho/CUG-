@@ -4,10 +4,11 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  padding-top: 1rem;
   /* gap: 1rem; */
 }
 .allotmentHistory h1 {
-  font-size: 3rem;
+  font-size: 2.7rem;
 }
 .historyTable {
   margin-top: 1rem;
