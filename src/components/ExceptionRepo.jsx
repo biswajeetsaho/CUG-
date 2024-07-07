@@ -13,12 +13,13 @@ const ExceptionReport = () => {
   const [employees, setEmployees] = useState([]);
   const [exceptions, setExceptions] = useState([]);
   const [error, setError] = useState("");
+  const [planCosts, setPlanCosts] = useState({});
 
-  const planCosts = {
-    A: 74.61,
-    B: 59.05,
-    C: 39.9,
-  };
+  // const planCosts = {
+  //   A: 74.61,
+  //   B: 59.05,
+  //   C: 39.9,
+  // };
 
   useEffect(() => {
     const fetchBills = () => {
@@ -33,7 +34,23 @@ const ExceptionReport = () => {
         }
       });
     };
+    const fetchPlanCosts = () => {
+      const planRef = ref(db, "Plan/");
+      onValue(planRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const costs = {};
+          Object.keys(data).forEach((planName) => {
+            costs[planName] = parseFloat(data[planName].Plan_Value);
+          });
+          setPlanCosts(costs);
+        } else {
+          setPlanCosts({});
+        }
+      });
+    };
     fetchBills();
+    fetchPlanCosts();
   }, [db]);
 
   const handleSearch = async (event) => {
@@ -179,7 +196,7 @@ const ExceptionReport = () => {
         </div>
         <br />
         {error && <div className="alert alert-danger">{error}</div>}
-        {exceptions.length > 0 && (
+        {exceptions.length > 0 ? (
           <>
             <div className="table-responsive">
               <table className="table table-bordered">
@@ -220,6 +237,8 @@ const ExceptionReport = () => {
               </div>
             </div>
           </>
+        ) : (
+          <p> No Exceptions Found</p>
         )}
       </main>
       <Outlet />

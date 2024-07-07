@@ -13,29 +13,39 @@
 }
 .dashboard ul {
   list-style: none;
-  text-align: center;
+  text-align: left;
   /* margin-top: 5rem; */
   padding-left: 0;
   height: auto;
   display: flex;
   flex-direction: column;
-
+  gap: 0.7rem;
   /* text-align: start; */
 }
-.dashboard li {
+/* .dashboard li {
   padding: 1rem 0rem;
-}
+} */
 .dashboard h2 {
   color: white;
   padding: 1rem 0.5rem;
-  font-size: 3rem;
+  font-size: 1.8rem;
   border-bottom: 2px solid white;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 .dashboard a {
   text-decoration: none;
-  color: white;
+  color: black;
+  background-color: #ebf4f6;
+  padding: 0.6rem 1rem;
   font-size: 1.2rem;
+  border-radius: 0.7rem;
+  transition: 0.2s ease-in;
+  width: 100%;
+  display: block;
+}
+.dashboard a:hover {
+  background-color: #ff7e8b;
 }
 .logoutbtn {
   display: flex;

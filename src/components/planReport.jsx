@@ -11,6 +11,7 @@ const PlanReport = () => {
   const [cugBillDetails, setCugBillDetails] = useState({});
   const [bills, setBills] = useState([]);
   const [selectedBill, setSelectedBill] = useState("");
+  const [billCUGNumbers, setBillCUGNumbers] = useState(new Set());
   // Firebase database instance setup (replace with your Firebase setup)
   const db = getDatabase(Fapp);
   // ---------Feching Bills------
@@ -30,6 +31,44 @@ const PlanReport = () => {
     fetchBills();
   }, [db]);
   // Handling plan selection and fetching employees
+  // const handleSearch = async (event) => {
+  //   event.preventDefault();
+  //   if (selectedPlan === "" || selectedBill === "") {
+  //     alert("Please Select a Plan and a Bill");
+  //     return;
+  //   }
+
+  //   const planRef = ref(db, "Employees3/");
+  //   const fetchEmployees = new Promise((resolve, reject) => {
+  //     onValue(planRef, (snapshot) => {
+  //       const data = snapshot.val();
+  //       if (data) {
+  //         const filteredDetails = Object.values(data).filter((item) => {
+  //           const isMatchingplan = item.Employee_Plan === selectedPlan;
+  //           const isActive = item.status === "Active";
+  //           return isMatchingplan && isActive;
+  //         });
+  //         resolve(filteredDetails);
+  //       } else {
+  //         reject("No Data found");
+  //       }
+  //     });
+  //   });
+
+  //   try {
+  //     const employees = await fetchEmployees;
+  //     if (employees.length === 0) {
+  //       setError(" No employees found for the selected plan.");
+  //       setPlanDetails([]);
+  //       return;
+  //     }
+  //     setPlanDetails(employees);
+  //     setError(null);
+  //   } catch (err) {
+  //     setError(err);
+  //     setPlanDetails([]);
+  //   }
+  // };
   const handleSearch = async (event) => {
     event.preventDefault();
     if (selectedPlan === "" || selectedBill === "") {
@@ -37,36 +76,43 @@ const PlanReport = () => {
       return;
     }
 
-    const planRef = ref(db, "Employees3/");
-    const fetchEmployees = new Promise((resolve, reject) => {
-      onValue(planRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          const filteredDetails = Object.values(data).filter((item) => {
-            const isMatchingplan = item.Employee_Plan === selectedPlan;
-            const isActive = item.status === "Active";
-            return isMatchingplan && isActive;
-          });
-          resolve(filteredDetails);
-        } else {
-          reject("No Data found");
-        }
-      });
-    });
+    // Fetch CUG numbers for the selected bill
+    const cugBillRef = ref(db, `CUGBILL/${selectedBill}`);
+    onValue(cugBillRef, (snapshot) => {
+      const cugBillData = snapshot.val();
+      if (cugBillData) {
+        const cugNumbers = new Set(Object.keys(cugBillData));
+        setBillCUGNumbers(cugNumbers);
 
-    try {
-      const employees = await fetchEmployees;
-      if (employees.length === 0) {
-        setError(" No employees found for the selected plan.");
+        // Fetch employees after setting the CUG numbers
+        const planRef = ref(db, "Employees3/");
+        onValue(planRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            const filteredDetails = Object.values(data).filter((item) => {
+              const isMatchingplan = item.Employee_Plan === selectedPlan;
+              const isActive = item.status === "Active";
+              const isInSelectedBill = cugNumbers.has(item.Employee_CUG);
+              return isMatchingplan && isActive && isInSelectedBill;
+            });
+            if (filteredDetails.length === 0) {
+              setError("No employees found for the selected plan.");
+              setPlanDetails([]);
+            } else {
+              setPlanDetails(filteredDetails);
+              setError(null);
+            }
+          } else {
+            setError("No Data found");
+            setPlanDetails([]);
+          }
+        });
+      } else {
+        setBillCUGNumbers(new Set());
+        setError("No CUG Bill data found");
         setPlanDetails([]);
-        return;
       }
-      setPlanDetails(employees);
-      setError(null);
-    } catch (err) {
-      setError(err);
-      setPlanDetails([]);
-    }
+    });
   };
 
   // Fetching CUG Bill details for a specific employee
@@ -183,7 +229,7 @@ const PlanReport = () => {
           </table>
         </div>
         <br />
-        <p>Number of Employees: {PlanDetails.length} </p>
+        {bill === 0 && <p>Number of Employees: {PlanDetails.length} </p>}
         {/* Employee Bill Details */}
         <div
           className={`table-responsive billtable ${

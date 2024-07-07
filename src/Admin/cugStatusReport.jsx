@@ -8,7 +8,7 @@ const CugStatusReport = () => {
   const [status, setStatus] = useState("1"); // Default to Active CUG
   const [cugData, setCugData] = useState([]);
   const [summary, setSummary] = useState({ totalActive: 0, totalInactive: 0 });
-
+  const [searchInput, setSearchInput] = useState("");
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
@@ -61,6 +61,14 @@ const CugStatusReport = () => {
     handleFetchData();
   }, [status]);
 
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const filteredCugData = cugData.filter((item) =>
+    item.Employee_CUG.includes(searchInput)
+  );
+
   return (
     <>
       <main className="cugStatusReport">
@@ -68,27 +76,47 @@ const CugStatusReport = () => {
         <br />
         <h1>CUG Status Report</h1>
         <br />
-        <label htmlFor="inputStatus" className="form-label">
-          Status
-        </label>
-        <select
-          className="form-select "
-          id="inputStatus"
-          aria-label="Default select example"
-          value={status}
-          onChange={handleStatusChange}
-        >
-          <option value="1">Active CUG</option>
-          <option value="2">Inactive CUG</option>
-        </select>
-        <br />
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={handleFetchData}
-        >
-          GO
-        </button>
+        <div className="row g-2">
+          <div className="col-3">
+            <label htmlFor="inputStatus" className="form-label">
+              Status
+            </label>
+            <select
+              className="form-select "
+              id="inputStatus"
+              aria-label="Default select example"
+              value={status}
+              onChange={handleStatusChange}
+            >
+              <option value="1">Active CUG</option>
+              <option value="2">Inactive CUG</option>
+            </select>
+          </div>
+          {cugData.length > 4 && (
+            <div className="col-6">
+              <label htmlFor="searchCUG" className="form-label">
+                Search CUG Number
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="searchCUG"
+                value={searchInput}
+                onChange={handleSearchInputChange}
+              />
+            </div>
+          )}
+          <div className="col-12">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={handleFetchData}
+            >
+              GO
+            </button>
+          </div>
+        </div>
+
         <div className="statusTable">
           <p>
             Showing Results for {status === "1" ? "Active CUG" : "Inactive CUG"}
@@ -102,8 +130,8 @@ const CugStatusReport = () => {
                 </tr>
               </thead>
               <tbody>
-                {cugData.length > 0 ? (
-                  cugData.map((item, index) => (
+                {filteredCugData.length > 0 ? (
+                  filteredCugData.map((item, index) => (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
                       <td>{item.Employee_CUG}</td>

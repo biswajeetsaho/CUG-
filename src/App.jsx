@@ -18,17 +18,25 @@ import UploadCUG from "./Admin/upload_NewCug";
 import UserContextProvider from "./userState";
 import BillPassingRegister from "./Admin/BillPassing";
 import ExceptionReport from "./components/ExceptionRepo";
+import Addplan from "./Admin/AddPlan";
+import ProtectedRoute from "./Routing/ProtectedRoute";
+import { useEffect, useState, createContext } from "react";
+export const userContext = createContext();
 function App() {
+  const [userType, setUserType] = useState(false);
   return (
     <>
-      <UserContextProvider>
+      <userContext.Provider value={{ userType, setUserType }}>
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />}></Route>
             {/* -------------Dealer Page Routing--------------- */}
             <Route path="/" element={<Navigate to="/login" />}></Route>
             <Route path="*" element={<Navigate to="/login" />}></Route>
-            <Route path="/dealer" element={<Sidebar />}>
+            <Route
+              path="/dealer"
+              element={<ProtectedRoute element={<Sidebar />} />}
+            >
               <Route path="/dealer/homePage" element={<HomePage />}></Route>
               <Route path="/dealer/addcug" element={<Addcug />}></Route>
               <Route
@@ -46,7 +54,10 @@ function App() {
               <Route path="/dealer/planReport" element={<PlanReport />}></Route>
             </Route>
             {/* -------------Admin Page Routing--------------- */}
-            <Route path="/admin" element={<AdminSidebar />}>
+            <Route
+              path="/admin"
+              element={<ProtectedRoute element={<AdminSidebar />} />}
+            >
               <Route path="/admin/homePage" element={<HomePage />}></Route>
               <Route
                 path="/admin/createDealer"
@@ -79,10 +90,11 @@ function App() {
                 element={<UploadCUGBill />}
               ></Route>
               <Route path="/admin/upload_CUGNo" element={<UploadCUG />}></Route>
+              <Route path="/admin/addPlan" element={<Addplan />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>
-      </UserContextProvider>
+      </userContext.Provider>
     </>
   );
 }

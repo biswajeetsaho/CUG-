@@ -7,6 +7,7 @@ import Header from "../Header";
 const UploadCUG = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  const [rowsAdded, setRowsAdded] = useState(0);
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -57,6 +58,7 @@ const UploadCUG = () => {
     }
 
     // Iterate over the rows and submit each entry to Firebase
+    let rowsCount = 0;
     rows.forEach((row) => {
       const [
         cugNo,
@@ -71,6 +73,18 @@ const UploadCUG = () => {
         plan,
       ] = row;
 
+      // if (
+      //   cugNo === " " ||
+      //   empNo === " " ||
+      //   empName === " " ||
+      //   designation === " " ||
+      //   division === " " ||
+      //   department === " " ||
+      //   billUnit === " " ||
+      //   allocationUnit === " " ||
+      //   operator === " " ||
+      //   plan === " "
+      // )
       if (
         !cugNo ||
         !empNo ||
@@ -87,7 +101,7 @@ const UploadCUG = () => {
         return;
       }
 
-      const newCugRef = ref(db, `Employees3/${empNo}`);
+      const newCugRef = ref(db, `Employees4/${empNo}`);
       set(newCugRef, {
         Employee_Name: empName,
         Employee_CUG: cugNo,
@@ -105,6 +119,8 @@ const UploadCUG = () => {
       })
         .then(() => {
           setError(""); // Clear any previous errors
+          rowsCount++;
+          setRowsAdded(rowsCount);
         })
         .catch((err) => {
           setError(`Error submitting data: ${err.message}`);
@@ -160,6 +176,15 @@ const UploadCUG = () => {
             <button className="btn btn-primary" onClick={handleSubmit}>
               Upload
             </button>
+            <br />
+            {rowsAdded > 0 && (
+              <>
+                <br />
+                <div className="alert alert-success">
+                  {rowsAdded} rows successfully added to the database.
+                </div>
+              </>
+            )}
           </>
         )}
       </main>
