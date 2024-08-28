@@ -38,40 +38,40 @@ const Login = () => {
 
   // const handleDealer = () => setuser("Dealer");
   // const handleAdmin = () => setuser("Admin");
-  const handleSubmit = async (e) => {
+  const   handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "" || email === "" || password === "") {
-      alert("please Enter all the Fields");
-      return;
-    }
-    try {
-      const collectionName = user === "Dealer" ? "dealers" : "admin";
+    // if (name === "" || email === "" || password === "") {
+    //   alert("please Enter all the Fields");
+    //   return;
+    // }
+    // try {
+    //   const collectionName = user === "Dealer" ? "dealers" : "admin";
       // const q = query(
       //   collection(db, collectionName),
       //   where("name", "==", name),
       //   where("email", "==", email),
       //   where("password", "==", password)
       // );
-      const q = query(
-        collection(db, collectionName),
-        where(`${user}_Name`, "==", name),
-        where(`${user}_Email`, "==", email),
-        where(`${user}_Password`, "==", password)
-      );
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        const userData = querySnapshot.docs[0].data();
-        localStorage.setItem("user", JSON.stringify(userData));
-        setUserType(true);
+      // const q = query(
+      //   collection(db, collectionName),
+      //   where(`${user}_Name`, "==", name),
+      //   where(`${user}_Email`, "==", email),
+      //   where(`${user}_Password`, "==", password)
+      // );
+      // const querySnapshot = await getDocs(q);
+      // if (!querySnapshot.empty) {
+      //   const userData = querySnapshot.docs[0].data();
+      //   localStorage.setItem("user", JSON.stringify(userData));
+      //   setUserType(true);
         if (user === "Dealer") navigate("/dealer/addcug");
         else navigate("/admin/createDealer");
-      } else {
-        setError("Invalid credentials");
-      }
-    } catch (err) {
-      setError("Error while logging in");
-      console.error(err);
-    }
+    //   } else {
+    //     setError("Invalid credentials");
+    //   }
+    // } catch (err) {
+    //   setError("Error while logging in");
+    //   console.error(err);
+    // }
 
     // console.log("Clicked");
     // if (user === "Dealer") {
